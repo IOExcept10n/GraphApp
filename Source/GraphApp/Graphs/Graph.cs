@@ -216,16 +216,17 @@ namespace GraphApp.Graphs
         {
             int[] groups = new int[Count];
             Array.Fill(groups, -1);
-            for (int i = 0; i < Count;)
+            int group = 0;
+            for (int i = 0; i < Count; i++)
             {
                 if (groups[i] == -1)
                 {
-                    i++;
+                    group++;
                     DepthFirstSearch(i, x =>
                     {
                         if (groups[x.Index] == -1)
                         {
-                            groups[x.Index] = i;
+                            groups[x.Index] = group;
                             return true;
                         }
                         return false;

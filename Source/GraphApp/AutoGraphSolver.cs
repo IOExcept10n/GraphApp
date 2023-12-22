@@ -13,7 +13,6 @@ namespace GraphApp
         {
             using GraphReader reader = new(sourceFile);
             var graph = reader.ReadGraph();
-            Directory.CreateDirectory(Path.GetDirectoryName(destinationFile)!);
             using StreamWriter output = new(destinationFile);
             output.WriteLine($"Graph connectivity: {graph.IsConnected()}");
             var bridges = graph.GetBridges().ToList();

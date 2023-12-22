@@ -2,13 +2,15 @@
 using Kurukuru;
 using Sharprompt;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Metadata;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace GraphApp.Interactive.Commands
 {
     internal class GraphAnimationDrawingCommand : ICommand
     {
-        public string Name => "Draws the graph animation as GIF.";
+        public string Name => "Draw the graph animation as GIF.";
 
         public async Task ExecuteAsync(CommandContext context)
         {
@@ -26,7 +28,11 @@ namespace GraphApp.Interactive.Commands
                 {
                     spinner.Text = $"Creating an animation (step {i} / {frames})...";
                     var image = context.CurrentGraphInstance!.GetDefaultLayout(new Size(width, height), i).DrawGraph<Rgb24>(settings, Color.White);
-                    animation.Frames.AddFrame(image.Frames[0]);
+                    ImageFrame<Rgb24> frame = image.Frames[0];
+                    ImageFrameMetadata metadata = frame.Metadata;
+                    GifFrameMetadata frameMetadata = metadata.GetGifMetadata();
+                    frameMetadata.DisposalMethod = GifDisposalMethod.RestoreToBackground;
+                    animation.Frames.AddFrame(frame);
                 }
                 spinner.Text = "Saving image to the file...";
                 await animation.SaveAsGifAsync(path);

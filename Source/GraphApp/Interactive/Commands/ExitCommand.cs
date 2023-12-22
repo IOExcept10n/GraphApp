@@ -2,7 +2,7 @@
 {
     internal class ExitCommand : ICommand
     {
-        public string Name => "Exit the application";
+        public string Name => "Exit the application.";
 
         public Task ExecuteAsync(CommandContext context)
         {

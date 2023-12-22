@@ -4,12 +4,14 @@ namespace GraphApp.Interactive.Commands
 {
     internal class SaveGraphCommand : ICommand
     {
-        public string Name => "Save graph into an interface";
+        public string Name => "Save graph into a file.";
 
         public Task ExecuteAsync(CommandContext context)
         {
             string filePath = Prompt.Input<string>("Input the file path.", validators: [CommandExtensions.ValidatePath]);
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+            // Add an extension.
+            if (!filePath.Replace('\\', '/').Split('/').Last().Contains('.'))
+                filePath += ".nel";
             using StreamWriter writer = new(filePath);
             foreach (var node in context.CurrentGraphInstance!.Nodes)
             {

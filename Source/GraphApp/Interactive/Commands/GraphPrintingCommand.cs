@@ -4,8 +4,6 @@
     {
         public string Name => "Print the contents of the current graph.";
 
-        public bool RequiresGraph => false;
-
         public Task ExecuteAsync(CommandContext context)
         {
             if (context.CurrentGraphInstance == null)
