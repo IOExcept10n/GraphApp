@@ -28,7 +28,7 @@ namespace GraphApp.Interactive.Commands
                 spinner.Text = "Success!";
             });
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Graph image {Path.GetFileName(path)} has been successfully saved..");
+            Console.WriteLine($"Graph image {Path.GetFileName(path)} has been successfully saved.");
             Console.ResetColor();
         }
     }

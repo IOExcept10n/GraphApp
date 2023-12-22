@@ -10,7 +10,7 @@ namespace GraphApp.Interactive
     internal static class CommandExtensions
     {
         public static Func<object, ValidationResult?> ValidatePath =>
-            x => Uri.IsWellFormedUriString(x.ToString(), UriKind.RelativeOrAbsolute) ? ValidationResult.Success : new ValidationResult("The path is incorrect.");
+            x => Uri.TryCreate(Uri.UriSchemeFile + x.ToString(), UriKind.RelativeOrAbsolute, out _) ? ValidationResult.Success : new ValidationResult("The path is incorrect.");
 
         public static Func<object, ValidationResult?> FileExists =>
             x => File.Exists(x.ToString()) ? ValidationResult.Success : new ValidationResult("The file doesn't exist");
