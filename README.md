@@ -25,4 +25,4 @@ Here's [the sample of the graph file](Resources/GraphSample.nel).
 
 ## Gallery
 ![Screenshot](Resources/AppScreenshot1.png)
-![Animation](Resources/Animation1.gif)
+<img src="Resources/Animation1.gif" width="512px" height="512px">
