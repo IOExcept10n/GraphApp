@@ -54,7 +54,7 @@ namespace GraphApp.Graphs
         {
         }
 
-        /// <inheritdoc cref="Graph{TWeight}()"/>
+        /// <inheritdoc cref="Graph()"/>
         /// <param name="nodes">The list of nodes to set.</param>
         public Graph(List<GraphNode> nodes)
         {
@@ -93,7 +93,8 @@ namespace GraphApp.Graphs
             return Enumerable.Empty<GraphNode>();
         }
 
-        /// <inheritdoc cref="Graph{TWeight}.BreadthFirstSearch(int)"/>
+        /// <inheritdoc cref="BreadthFirstSearch(int)"/>
+        /// <param name="startIndex">The starting index of the beginning node.</param>
         /// <param name="predicate">
         /// An optional predicate for the search in the case
         /// if the search will require only nodes that passes any custom condition.
@@ -178,7 +179,7 @@ namespace GraphApp.Graphs
         /// <param name="endIndex">The destination of the path.</param>
         /// <returns>The distance to the destination node measured as
         /// the edges' weights sum of the shortest path to the destination
-        /// or -<see cref="TWeight.One"/> if there are no paths to the destination.</returns>
+        /// or <see cref="float.PositiveInfinity"/> if there are no paths to the destination.</returns>
         public float MinimalDistance(int startIndex, int endIndex)
         {
             float[] distances = new float[Count];
@@ -372,6 +373,10 @@ namespace GraphApp.Graphs
             return newNode;
         }
 
+        /// <summary>
+        /// Adds an edge to the graph.
+        /// </summary>
+        /// <param name="edge">The edge definition to add.</param>
         public void AddEdge(OrientedEdgeDefinition edge)
         {
             AssertEdge(edge);
@@ -497,6 +502,7 @@ namespace GraphApp.Graphs
             /// </summary>
             public int DestinationIndex { get; init; }
 
+            /// <inheritdoc/>
             public override string ToString()
             {
                 return $"{Name}: {SourceIndex}-{DestinationIndex}";
@@ -508,6 +514,9 @@ namespace GraphApp.Graphs
         /// </summary>
         public class GraphNode : IIdentifiable
         {
+            /// <summary>
+            /// Gets the graph that owes the node.
+            /// </summary>
             public Graph? ParentGraph { get; internal set; }
 
             /// <inheritdoc/>
@@ -518,6 +527,9 @@ namespace GraphApp.Graphs
             /// </summary>
             public int Index { get; internal set; }
 
+            /// <summary>
+            /// Gets all the edges that come to the current node.
+            /// </summary>
             public IEnumerable<OrientedEdgeDefinition> IncomingEdges => ParentGraph == null ?
                     Enumerable.Empty<OrientedEdgeDefinition>() :
                     from node in ParentGraph.nodes
@@ -534,7 +546,6 @@ namespace GraphApp.Graphs
             /// Creates a node with the name, edges and the optional data.
             /// </summary>
             /// <param name="name">The name of a node.</param>
-            /// <param name="edges">The set of edges defined in the node.</param>
             public GraphNode(string name)
             {
                 Name = name;

@@ -32,17 +32,17 @@ namespace GraphApp.Graphs
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GraphReader"/> class.
-        /// </summary>
-        /// <param name="reader">The instance of the <see cref="StreamReader"/> to read the content of the file.</param>
+        /// <inheritdoc cref="GraphReader(StreamReader, bool)"/>
         public GraphReader(StreamReader reader)
         {
             this.reader = reader;
         }
 
-        /// <inheritdoc cref="GraphReader(StreamReader)"/>
-        /// <param name="keepOpen"></param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GraphReader"/> class.
+        /// </summary>
+        /// <param name="reader">The instance of the <see cref="StreamReader"/> to read the content of the file.</param>
+        /// <param name="keepOpen">Determines whether to close the stream after disposing.</param>
         public GraphReader(StreamReader reader, bool keepOpen)
         {
             this.reader = reader;
